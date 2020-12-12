@@ -9,7 +9,7 @@ module.exports = (customOptions = undefined) => {
 
     return (func, then = undefined, thenCatch = undefined, ...funcArgs) => {
         return new Promise(async (resolve, reject) => {
-            new Promise(() => { resolve(await func(...funcArgs)); });
+            new Promise(async () => { resolve(await func(...funcArgs)); });
 
             let checks = 0;
 
