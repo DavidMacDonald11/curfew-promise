@@ -14,7 +14,7 @@ module.exports = (customOptions = undefined) => {
             let checks = 0;
 
             while(checks++ < options.checks)
-                await new Promise((r) => setTimeout(r, options.wait));
+                await new Promise((r) => { setTimeout(r, options.wait); });
 
             reject("Curfew of " + options.curfew + "ms has expired.");
         }).then(then, thenCatch);
