@@ -7,7 +7,18 @@ const defaultOptions = {
 module.exports = (customOptions = undefined) => {
     options = getOptions(customOptions);
 
-    
+    return (func, then = undefined, thenCatch = undefined, ...funcArgs) => {
+        return new Promise(async (resolve, reject) => {
+            new Promise(() => { resolve(await func(...funcArgs)); });
+
+            let checks = 0;
+
+            while(checks++ < options.checks)
+                await new Promise((r) => setTimeout(r, options.wait));
+
+            reject("Curfew of " + options.curfew + "ms has expired.");
+        }).then(then, thenCatch);
+    };
 }
 
 function getOptions(customOptions) {
