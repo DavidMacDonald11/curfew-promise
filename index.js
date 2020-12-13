@@ -1,6 +1,16 @@
-module.exports = (curfew, func, then = undefined, thenCatch = undefined, ...funcArgs) => {
-    return new Promise(async (resolve, reject) => {
-        setTimeout(reject, curfew, "Curfew of " + curfew + "ms has expired.");
-        resolve(await func(...funcArgs)); 
-    }).then(then, thenCatch);
-};
+module.exports = (curfew, func, ...args) => {
+    let waitId;
+
+    async function wait() {
+        await new Promise((resolve) => { waitId = setTimeout(resolve, curfew); });
+        return Promise.reject(new Error("Curfew of " + curfew + "ms have elapsed."));
+    }
+
+    async function perform() {
+        const value = await func(...args);
+        if(waitId) clearTimeout(waitId);
+        return Promise.resolve(value);
+    }
+    
+    return Promise.race([wait(), perform()]);
+}
