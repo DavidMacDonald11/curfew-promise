@@ -50,7 +50,7 @@ curfewPromise(10000, fib, 1, 1, 8);
 # Warning Example
 I found this out the hard way while trying to test this.
 Since JavaScript isn't actually mutli-threaded, if you have a one line async function that is very slow, it will be treated like a synchronous function. 
-This is because once the line begins, JavaScript will wait for it to end before moving on.
+This is because once the line begins, JavaScript will wait for it to end before moving on. If you'd like to know more, feel free to read my [blog post](https://theintrospectivethinker529047368.wordpress.com/2020/12/13/its-easy-to-break-promises/) about it.
 
 ```javascript
 const curfewPromise = require("curfew-promise");
