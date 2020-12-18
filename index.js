@@ -12,5 +12,7 @@ module.exports = (curfew, func, ...args) => {
         return Promise.resolve(value);
     }
     
+    if(typeof func === "undefined") return wait().catch(() => {});
+
     return Promise.race([wait(), perform()]);
 }

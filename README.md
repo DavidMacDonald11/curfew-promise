@@ -16,6 +16,10 @@ const curfewPromise = require("curfew-promise");
 // ...args are any arguments for func
 // func will run until it finishes or until curfew has elapsed.
 curfewPromise(curfew, func, ...args);
+
+// This will act solely as a timer. 
+// It will resolve after curfew has elapsed.
+curfewPromise(curfew);
 ```
 
 # Example 1
@@ -45,6 +49,21 @@ function fib(num1, num2, amount) {
 
 // This will give a curfew of 10 seconds to generate 8 Fibonacci numbers.
 curfewPromise(10000, fib, 1, 1, 8);
+```
+
+# Example 3
+```javascript
+const curfewPromise = require("curfew-promise");
+
+async function test() {
+    ...
+
+    // By excluding any function, the promise will only act as a timer.
+    // This line will pause the test() function for 1000 milliseconds.
+    await curfewPromise(1000);
+
+    ...
+}
 ```
 
 # Warning Example
